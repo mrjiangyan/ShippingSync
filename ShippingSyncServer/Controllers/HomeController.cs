@@ -6,13 +6,8 @@ using System.Web.Mvc;
 
 namespace ShippingSyncServer.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseApiController
     {
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Home Page";
-
-            return View();
-        }
+    
     }
 }

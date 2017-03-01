@@ -44,14 +44,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper.Contrib, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.Contrib.1.50.0\lib\net45\Dapper.Contrib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -67,9 +81,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -125,8 +136,21 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Binder\PostParameterBinding.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Controller\SyncApiController.cs" />
+    <Compile Include="App_Start\Controller\BaseApiController.cs" />
+    <Compile Include="App_Start\CookieUtility.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Filter\DeflateCompressionAttribute.cs" />
+    <Compile Include="App_Start\Filter\ExternalAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\Filter\HttpResponseHelper.cs" />
+    <Compile Include="App_Start\Filter\AuthorizeAttribute.cs" />
+    <Compile Include="App_Start\Filter\SyncExceptionFilterAttribute.cs" />
+    <Compile Include="App_Start\Filter\SignatureAttribute.cs" />
+    <Compile Include="App_Start\GlobalConfigurationHelper.cs" />
+    <Compile Include="App_Start\MessageHandlers\MessageHandler.cs" />
+    <Compile Include="App_Start\MessageHandlers\MessageLoggingHandler.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

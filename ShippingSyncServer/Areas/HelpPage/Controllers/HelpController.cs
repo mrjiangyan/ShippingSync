@@ -9,7 +9,7 @@ namespace ShippingSyncServer.Areas.HelpPage.Controllers
     /// <summary>
     /// The controller that will handle requests for the help page.
     /// </summary>
-    public class HelpController : Controller
+    public class HelpController : BaseApiController
     {
         private const string ErrorViewName = "Error";
 
