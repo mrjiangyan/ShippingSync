@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iPms.WebUtilities.Helper;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,12 +9,11 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-
-
+using Utilities;
 
 namespace ShippingSyncServer.Filters
 {
-    public class PmsAuthorizeAttribute : AuthorizeAttribute
+    public class WebAuthorizeAttribute : AuthorizeAttribute
     {
 
         public static string userToken = null;
@@ -21,38 +21,25 @@ namespace ShippingSyncServer.Filters
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             var header = actionContext.Request.Headers;
-            var controller = (BaseController)actionContext.ControllerContext.Controller;
-            var info = controller.CurrentContextInfo;
-         
-            if (info != null && info.CurrentUser != null)
-            {
-                return true;
-            }
+            var controller = (BaseApiController)actionContext.ControllerContext.Controller;
             var request = HttpContext.Current.Request;
-            var accessKeyId = request.Headers[RequestEntity.RequestHeaders.AccessKeyId];
-           
-            var apiHeader = request.Headers[RequestEntity.RequestHeaders.ApiHeader];
-            controller.Header = apiHeader.JsonObjectDeserialize<ApiHeader>();
-            InvokeContext.Invoker = invoker;
+
             #region 当前会话中不存在用户信息的情况
-            if (invoker.EnableSession)
+            //从header中获取到用户Token
+            userToken = GetCookie(actionContext.Request.Headers, "SessionId");
+            if (userToken == null)
+                throw new ApiException(HttpStatusCode.Unauthorized);
+            var tuple = AuthorizeHelper.DecodezJwtToken(userToken);
+            var user = tuple.Item1;
+            if (user == null)
             {
-                //从header中获取到用户Token
-                 userToken = GetCookie(actionContext.Request.Headers, "SessionId");
-                if (userToken == null)
-                    throw new BusinessException(string.Empty, (int)HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized);
-                var tuple = AuthorizeHelper.DecodezJwtToken(userToken);
-                var user = tuple.Item1;
-                if (user == null)
-                {
-                    throw new BusinessException(string.Empty, (int)HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized);
-                }
-                System.Web.HttpCookie cookie = new HttpCookie("SessionId", AuthorizeHelper.GenerateJwtToken(user));
-                cookie.Expires = CurrentTime.Now.AddDays(7);
-                HttpContext.Current.Response.Cookies.Add(cookie);
-                return true;
+                throw new ApiException(HttpStatusCode.Unauthorized);
             }
+            HttpCookie cookie = new HttpCookie("SessionId", AuthorizeHelper.GenerateJwtToken(user));
+            cookie.Expires = DateTime.Now.AddDays(7);
+            HttpContext.Current.Response.Cookies.Add(cookie);
             return true;
+           
             #endregion
         }
 
@@ -60,7 +47,7 @@ namespace ShippingSyncServer.Filters
         {
             base.HandleUnauthorizedRequest(actionContext);
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-            actionContext.Response.Content = HttpResponseHelper.GetStandardContent(new ApiResponse<string>().WithError(HttpStatusCode.Unauthorized));
+            //actionContext.Response.Content = HttpResponseHelper.GetStandardContent(new ApiResponse<string>().WithError(HttpStatusCode.Unauthorized));
 
         }
 

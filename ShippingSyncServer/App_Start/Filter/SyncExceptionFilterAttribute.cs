@@ -3,14 +3,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
-using iPms.WebUtilities.Controller;
+
 
 namespace ShippingSyncServer.Filters
 {
     public class SyncExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        private static readonly string AccessKeyIdType = RequestEntity.RequestHeaders.AccessKeyId.ToString();
-
+ 
         public static void SaveException(HttpActionExecutedContext context)
         {
             var log = new ExceptionLog

@@ -1,10 +1,11 @@
-﻿using iPms.WebUtilities.Attribute;
+﻿using ShippingSyncServer.Filters;
+using System.Web.Http;
 
 namespace ShippingSyncServer.Controller
 {
-
-    [ExternalAuthorize]
-    public class ExternalApiController : BaseController
+    [DeflateCompression]
+    [SyncAuthorize]
+    public class ExternalApiController : ApiController
     {
        
     }
