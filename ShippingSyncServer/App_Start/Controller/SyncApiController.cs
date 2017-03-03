@@ -5,7 +5,7 @@ namespace ShippingSyncServer.Controller
 {
     [DeflateCompression]
     [SyncAuthorize]
-    public class ExternalApiController : ApiController
+    public class SyncApiController : ApiController
     {
        
     }

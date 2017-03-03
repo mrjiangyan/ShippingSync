@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities
+namespace Utilities.Entity
 {
     public class ApiException : Exception
     {
