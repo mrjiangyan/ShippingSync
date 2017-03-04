@@ -71,7 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestEntity.cs" />
     <Compile Include="Utils\IllegalInputHandler.cs" />
-    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\LogUtility.cs" />
     <Compile Include="Utils\PredicateUtility.cs" />
     <Compile Include="Utils\HMACHelper.cs" />
   </ItemGroup>
