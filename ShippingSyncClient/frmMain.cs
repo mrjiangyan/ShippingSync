@@ -49,7 +49,7 @@ namespace ShppingSync
         /// <param name="e"></param>
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tabPage=tabControl1.TabPages[tabControl1.SelectedIndex];
+            var tabPage=tabControl.TabPages[tabControl.SelectedIndex];
             if(tabPage == tabConnection && string.IsNullOrEmpty(txtConnection.Text))
             {
                 txtConnection.Text = ConnectionFactory.ConnectionString;

@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabConnection = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtConnection = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTryConnection = new System.Windows.Forms.Button();
             this.btnSaveConnection = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
+            this.tabLog = new System.Windows.Forms.TabPage();
+            this.tabControl.SuspendLayout();
             this.tabConnection.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabConnection);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1372, 756);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl.Controls.Add(this.tabConnection);
+            this.tabControl.Controls.Add(this.tabLog);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(1372, 756);
+            this.tabControl.TabIndex = 0;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabConnection
             // 
@@ -115,25 +115,25 @@
             this.btnSaveConnection.UseVisualStyleBackColor = true;
             this.btnSaveConnection.Click += new System.EventHandler(this.btnSaveConnection_Click);
             // 
-            // tabPage2
+            // tabLog
             // 
-            this.tabPage2.Location = new System.Drawing.Point(8, 51);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1356, 697);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabLog.Location = new System.Drawing.Point(8, 51);
+            this.tabLog.Name = "tabLog";
+            this.tabLog.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLog.Size = new System.Drawing.Size(1356, 697);
+            this.tabLog.TabIndex = 1;
+            this.tabLog.Text = "Log";
+            this.tabLog.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1372, 756);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Name = "frmMain";
             this.Text = "Form1";
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabConnection.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -143,11 +143,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabConnection;
         private System.Windows.Forms.Button btnSaveConnection;
         private System.Windows.Forms.Button btnTryConnection;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabLog;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtConnection;
         private System.Windows.Forms.Label label2;
