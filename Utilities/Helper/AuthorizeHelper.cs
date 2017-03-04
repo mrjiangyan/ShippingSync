@@ -11,15 +11,15 @@ namespace iPms.WebUtilities.Helper
 {
     public class AuthorizeHelper
     {
-        private const string app_securt = "";
+        private const string APP_SECRET = "";
 
 
       
-        private static void VerifySignature(byte[] signingKey, byte[] requestBody,string authorization)
+        private static void VerifySignature(byte[] signingKey, byte[] requestBody,string originSignature)
         {
             var signature =
-               Convert.ToBase64String(SignatureHelper.ComputeHMAC(signingKey, requestBody));
-            if (!signature.Equals(authorization))
+               Convert.ToBase64String(HMACHelper.ComputeHMAC(signingKey, requestBody));
+            if (!signature.Equals(originSignature))
                 throw new ApiException(HttpStatusCode.Forbidden);
         }
 
@@ -30,7 +30,7 @@ namespace iPms.WebUtilities.Helper
         /// <param name="entity"></param>
         /// <param name="invoker"></param>
         /// <returns></returns>
-        public static void VerifyExternalApi(RequestEntity entity)
+        public static void VerifySyncApi(RequestEntity entity)
         {
             //如果存在端口转换，则需要对地址进行转换
             var originalPort = entity.Request.Headers["X-Forwarded-Port"];
@@ -44,18 +44,28 @@ namespace iPms.WebUtilities.Helper
             }
             var canonicalRequest = string.Format("{0}\n{1}", entity.Request.HttpMethod.ToUpper(), url);
 
-            var signingKey = SignatureHelper.ComputeHMAC(app_securt, canonicalRequest);
+            var signingKey = HMACHelper.ComputeHMAC(APP_SECRET, canonicalRequest);
             //Get RequestBody;
             var content = new byte[entity.Request.ContentLength];
             var result = entity.Request.GetBufferedInputStream();
             result.Position = 0;
             result.Read(content, 0, content.Length);
-            VerifySignature(signingKey, content, entity.Request.Headers["Authorization"]);
+            var authorization=entity.Request.Headers["Authorization"];
+            string originSignature = authorization.Split(':')[1];
+            VerifySignature(signingKey, content, originSignature);
            
         }
 
-     
-     
+        public static string GenerateAuthorization(string app_id,string url,string httpMethod,byte[] requestBody)
+        {
+            var canonicalRequest = string.Format("{0}\n{1}", httpMethod, url);
+            var signingKey = HMACHelper.ComputeHMAC(APP_SECRET, canonicalRequest);
+            var signature =
+               Convert.ToBase64String(HMACHelper.ComputeHMAC(signingKey, requestBody));
+            return "MWS" + " " + app_id + ":" + signature;
+        }
+
+
 
     }
 }

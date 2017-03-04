@@ -22,7 +22,7 @@ namespace ShippingSyncServer.Filters
             var context = HttpContext.Current;
             var header = context.Request.Headers;
             //根据几个数值对数据进行校验
-            AuthorizeHelper.VerifyExternalApi(new RequestEntity
+            AuthorizeHelper.VerifySyncApi(new RequestEntity
             {
                 Request = context.Request,               
             });
