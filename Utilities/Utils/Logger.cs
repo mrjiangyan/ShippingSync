@@ -9,22 +9,39 @@ using System.Threading.Tasks;
 
 namespace Utilities.Utils
 {
-    public class Logger
+    public class LogUtility
     {
-        static Logger()
+        static readonly ILog logger;
+        static LogUtility()
         {
-            //log4net.Config.XmlConfigurator.Configure();
+            logger = LogManager.GetLogger(Assembly.GetEntryAssembly().DefinedTypes.First());
+
 
         }
 
-        public static void Save()
+        public static void Info(object message)
         {
-            var logger = LogManager.GetLogger(Assembly.GetEntryAssembly().DefinedTypes.First());
-
-            logger.Info("消息");
-            logger.Warn("警告");
-            logger.Error("异常");
-            logger.Fatal("错误");
+            logger.Info(message);
+           
         }
+
+        public static void Warn(object message)
+        {
+            logger.Warn(message);
+            
+        }
+
+        public static void Error(object message, Exception exception)
+        {
+            logger.Error(message, exception);
+           
+        }
+
+        public static void Fatal(object message,Exception exception)
+        {
+            logger.Fatal(message,exception);
+        }
+
+
     }
 }

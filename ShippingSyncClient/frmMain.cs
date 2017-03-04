@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utilities.Dal;
+using Utilities.Utils;
 
 namespace ShppingSync
 {
@@ -58,7 +59,17 @@ namespace ShppingSync
 
         private void btnSaveConnection_Click(object sender, EventArgs e)
         {
-            ConnectionFactory.ConnectionString = txtConnection.Text;
+            try
+            {
+                ConnectionFactory.ConnectionString = txtConnection.Text;
+                LogUtility.Info("设置数据库连接字符串:" + ConnectionFactory.ConnectionString);
+                int a = int.Parse("111a");
+            }
+            catch (Exception err)
+            {
+                LogUtility.Error("设置数据库连接字符串",err);
+
+            }
         }
     }
 }
