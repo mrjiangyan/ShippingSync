@@ -56,8 +56,6 @@ namespace ShippingSyncServer.Filters
                     }
                 }
             }
-            if(InvokeContext.Invoker!= null)
-                log.Invoker= InvokeContext.Invoker.JsonObjectSerialize();
             //记录下应用的错误信息
             Logger.LogException(log);
         }

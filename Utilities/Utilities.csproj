@@ -43,6 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
@@ -54,7 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiException.cs" />
+    <Compile Include="Dal\ConnectionFactory.cs" />
+    <Compile Include="Dal\DALFactory.cs" />
+    <Compile Include="Entity\ApiException.cs" />
+    <Compile Include="Entity\ApiKeyVal.cs" />
+    <Compile Include="Entity\ApiResponse.cs" />
+    <Compile Include="Entity\BusinessException.cs" />
     <Compile Include="Helper\AuthorizeHelper.cs" />
     <Compile Include="Helper\CompressionHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />

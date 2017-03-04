@@ -4,6 +4,7 @@ using System;
 using System.Net;
 using System.Text;
 using Utilities;
+using Utilities.Entity;
 using Utilities.Utils;
 
 namespace iPms.WebUtilities.Helper

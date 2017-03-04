@@ -140,14 +140,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Controller\SyncApiController.cs" />
     <Compile Include="App_Start\Controller\BaseApiController.cs" />
-    <Compile Include="App_Start\CookieUtility.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Filter\DeflateCompressionAttribute.cs" />
-    <Compile Include="App_Start\Filter\ExternalAuthorizeAttribute.cs" />
-    <Compile Include="App_Start\Filter\HttpResponseHelper.cs" />
-    <Compile Include="App_Start\Filter\AuthorizeAttribute.cs" />
+    <Compile Include="App_Start\Filter\SyncAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\Filter\WebAuthorizeAttribute.cs" />
     <Compile Include="App_Start\Filter\SyncExceptionFilterAttribute.cs" />
-    <Compile Include="App_Start\Filter\SignatureAttribute.cs" />
     <Compile Include="App_Start\GlobalConfigurationHelper.cs" />
     <Compile Include="App_Start\MessageHandlers\MessageHandler.cs" />
     <Compile Include="App_Start\MessageHandlers\MessageLoggingHandler.cs" />
@@ -182,7 +178,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,7 +234,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{85063F1D-50B4-4537-8E44-9F0861F91758}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
