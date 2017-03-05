@@ -1,0 +1,163 @@
+﻿<section ng-controller="iPms.Report.ProfileReportController">
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header hide">
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-circle" src="AngularScripts/img/profile_small.jpg" />
+
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" >
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">David Williams</strong>
+                                    </span> 
+                                    <!--<span class="text-muted text-xs block">Art Director <b class="caret"></b></span>-->
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs hide">
+                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li class="divider"></li>
+                                <li><a href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a ><i class="fa fa-table"></i> <span class="nav-label">商家后台</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li ng-class="{'IPMS': 'active'}[searchModel.source]"><a href="#/ProfileReport?source=IPMS">总概况.EB</a></li>
+                            <li ng-class="{'SPMS': 'active'}[searchModel.source]"><a href="#/ProfileReport?source=SPMS">总概况.标准版</a></li>
+                            <li><a href="#/CityStatisticsReport">城市统计</a></li>
+                            <!--<li ><a href="#/StatusStatisticsReport">状态统计表</a></li>-->
+                            <li><a href="#/HotelListReport">门店列表</a></li>
+                            <!--<li><a href="#/HotelLivenessListReport">门店状态列表</a></li>-->
+                            <li><a href="#/OrderingAnalysisReport">EB预订单分析</a></li>
+                            <li><a href="#/HotelStatisticsReport">单店营业统计</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header hide">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="ProfileReport.html#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message ">{{userName}}</span>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> 登出
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="row wrapper border-bottom white-bg search-heading">
+                <div class="col-xs-12">
+                    <div class="search-box">
+                        <span class="search-label">日期：</span>
+                        <div class="search-wrap">
+                            <div class="date-wrap" ng-click="openCalendar($event)" style="cursor:pointer;">
+                                <span>{{searchModel.startDate| date:'yyyy/MM/dd '}}</span>
+                                -
+                                <span>{{searchModel.endDate| date:'yyyy/MM/dd '}}</span>
+                                <div id="datevallist" class="date-box" ng-show="dateSel.show">
+                                    <div>
+
+                                        <input type="text" ng-model="searchModel.startDate" datepicker-popup="{{dateFormat}}" is-open="startDateCalendarOpened" ng-change="startDateCalendarChanged($event)" ng-click="openStartDateCalendar($event)" max-date="maxDate" min-date="minDateThreeMonths" current-text="今天" clear-text="清除" close-text="确定" readonly="readonly" class="form-control select-date" style="cursor:pointer;">
+                                        - <input type="text" ng-model="searchModel.endDate" datepicker-popup="{{dateFormat}}" is-open="endDateCalendarOpened" ng-change="endDateCalendarChanged($event)" ng-click="openEndDateCalendar($event)" max-date="currentDate" min-date="minDate" current-text="今天" clear-text="清除" close-text="确定" readonly="readonly" class="form-control select-date" style="cursor:pointer;">
+                                    </div>
+                                    <div>
+                                        <span class="day" ng-class="{'yesterDay': 'active'}[dateRange]" ng-click="changeDateRange('yesterDay',$event)">前天</span>
+                                        <span class="day" ng-class="{'sevenDay': 'active'} [dateRange]" ng-click="changeDateRange('sevenDay',$event)">近7天</span>
+                                        <span class="day" ng-class="{'thirtyDay': 'active'}[dateRange]" ng-click="changeDateRange('thirtyDay',$event)">近30天</span>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-success btn-sm btn-block" ng-click="searchProfileReport()">确定</button>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <!--<h5>门店列表</h5>-->
+                                <button class="submit hide" ng-click="searchHotelListReport()">导出表格</button>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>新增注册</th>
+                                                <th>累计注册</th>
+                                                <th>日活</th>
+                                                <th>入住单</th>
+                                                <th ng-class="{'SPMS': 'hide'}[searchModel.source]">预订单</th>
+                                                <th ng-class="{'SPMS': 'hide'}[searchModel.source]">美团预订单</th>
+                                                <th ng-class="{'SPMS': 'hide'}[searchModel.source]">手录预订单</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeX" ng-repeat="item in profileList">
+                                                <td>{{item.Date | date:'yyyy/MM/dd '}}</td>
+                                                <td><a href="#/HotelListReport?startDate={{searchModel.startDate}}&endDate={{item.Date | date:'yyyy-MM-dd '}}&source={{source}}&status=Register">{{item.NewRegisterCount=='0'&&'-'||item.NewRegisterCount}}</a> </td>
+                                                <td><a href="#/HotelListReport?startDate={{searchModel.startDate}}&endDate={{item.Date | date:'yyyy-MM-dd '}}&source={{source}}">{{item.TotalRegisterCount=='0'&&'-'||item.TotalRegisterCount}}</a></td>
+                                                <td><a href="#/HotelListReport?startDate={{searchModel.startDate}}&endDate={{item.Date | date:'yyyy-MM-dd '}}&source={{source}}&status=DailyActive">{{item.DailyActiveCount=='0'&&'-'||item.DailyActiveCount}}</a></td>
+                                                <td><a href="#/HotelListReport?startDate={{searchModel.startDate}}&endDate={{item.Date | date:'yyyy-MM-dd '}}&source={{source}}&status=DailyActive">{{item.CheckinCount=='0'&&'-'||item.CheckinCount}}</a></td>
+                                                <td ng-class="{'SPMS': 'hide'}[searchModel.source]"><a href="#/OrderingAnalysisReport?startDate={{searchModel.startDate}}&endDate={{item.Date | date:'yyyy-MM-dd '}}&ReUrl=Profile"> {{item.OrderCount=='0'&&'-'||item.OrderCount}}</a> </td>
+                                                <td ng-class="{'SPMS': 'hide'}[searchModel.source]">{{item.MtOrderCount=='0'&&'-'||item.MtOrderCount}}</td>
+                                                <td ng-class="{'SPMS': 'hide'}[searchModel.source]">{{item.StoreOrderCount=='0'&&'-'||item.StoreOrderCount}}</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <ipms-pagination total-page-num="totalPageNum" current-page-num="searchModel.PageNum" ng-show="totalPageNum > 1"></ipms-pagination>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer hide">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2015
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </section>

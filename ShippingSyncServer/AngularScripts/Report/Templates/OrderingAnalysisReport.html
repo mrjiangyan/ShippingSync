@@ -1,0 +1,156 @@
+﻿
+<section ng-controller="iPms.Report.OrderingAnalysisReportController">
+    <div id="wrapper" ng-click="hideCity()">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header hide">
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-circle" src="AngularScripts/img/profile_small.jpg" />
+
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">David Williams</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a><i class="fa fa-table"></i> <span class="nav-label">商家后台</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#/ProfileReport?source=IPMS">总概况.EB</a></li>
+                            <li><a href="#/ProfileReport?source=SPMS">总概况.标准版</a></li>
+                            <li><a href="#/CityStatisticsReport">城市统计</a></li>
+                            <!--<li><a href="#/StatusStatisticsReport">状态统计表</a></li>-->
+                            <li><a href="#/HotelListReport">门店列表</a></li>
+                            <!--<li><a href="#/HotelLivenessListReport">门店状态列表</a></li>-->
+                            <li class="active"><a href="#/OrderingAnalysisReport">EB预订单分析</a></li>
+                            <li><a href="#/HotelStatisticsReport">单店营业统计</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header hide">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="table_data_tables.html#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message ">{{userName}}</span>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i>登出
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="row wrapper border-bottom white-bg search-heading">
+                <div class="col-xs-12">
+                    <div class="search-box">
+                        <span class="search-label">日期：</span>
+                        <div class="search-wrap">
+                            <div class="date-wrap" style="cursor:pointer;">
+                                <span ng-model="searchModel.endDate" datepicker-popup="{{dateFormat}}" is-open="endDateCalendarOpened" ng-change="endDateCalendarChanged($event)" ng-click="openEndDateCalendar($event)" max-date="currentDate" min-date="minDate" current-text="今天" clear-text="清除" close-text="确定" readonly="readonly" class=" select-date" style="cursor:pointer;">{{searchModel.endDate| date:'yyyy/MM/dd '}}</span>
+                                <!--<input type="text" ng-model="searchModel.endDate" datepicker-popup="{{dateFormat}}" is-open="endDateCalendarOpened" ng-change="endDateCalendarChanged($event)" ng-click="openEndDateCalendar($event)" max-date="currentDate" min-date="minDate" current-text="今天" clear-text="清除" close-text="确定" readonly="readonly" class="form-control select-date" style="cursor:pointer;">-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <span class="search-label">按城市：</span>
+                        <div class="search-wrap">
+                            <div class="city-wrap">
+                                <input type="text" placeholder="请输入城市模糊搜索" ng-model="searchModel.city" ng-change="changeCity()">
+                                <table class="tableSearch">
+                                    <tr ng-repeat="item in cityList">
+                                        <td ng-click="choiceCity(item)">{{item}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <span class="search-label"></span>
+                        <div class="search-wrap">
+                            <div class="search-filter">
+                                <button class="submit" onmousedown="this.className = 'submit btnMouseDown '" onmouseup="this.className = 'submit'" ng-click="searchOrderingAnalysisReport()">查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>EB预订单分析</h5>
+                                <button class="submit hide" ng-click="searchHotelListReport()">导出表格</button>
+                            </div>
+                            <div class="ibox-content">
+                                <span style="color:#62718e;margin-bottom: 10px;display: block;">  预订单数:<span style="margin-right: 20px;">{{orderInfo.totalOrderCount}}</span> 美团订单数:<span style="margin-right: 20px;">{{orderInfo.totalMtOrderCount}}</span>手录订单数:<span style="margin-right: 20px;">{{orderInfo.totalStoreOrderCount}}</span></span> 
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>酒店名称</th>
+                                                <th>城市</th>
+                                                <th>房间数</th>
+                                                <th>预定单数</th>
+                                                <th>美团预定单</th>
+                                                <th>手录预订单</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeX" ng-repeat="item in list">
+                                                <td><a href="#/HotelStatisticsReport?hotelName={{item.OrgName}}&OrgId={{item.OrgId}}&OwnerId={{item.OwnerId}}&startDate={{searchModel.startDate}}&endDate={{searchModel.endDate}}&source={{item.Source}}"> {{item.OrgName}}</a> </td>
+                                                <td>{{item.CityId}}</td>
+                                                <td>{{item.RoomCount=='0'&&'-'||item.RoomCount}}</td>
+                                                <td>{{(item.MtOrderCount+item.StoreOrderCount)=='0'&&'-'||(item.MtOrderCount+item.StoreOrderCount)}}</td>
+                                                <td>{{item.MtOrderCount=='0'&&'-'||item.MtOrderCount}}</td>
+                                                <td>{{item.StoreOrderCount=='0'&&'-'||item.StoreOrderCount}}</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <ipms-pagination total-page-num="totalPageNum" current-page-num="searchModel.PageNum" ng-show="totalPageNum > 1"></ipms-pagination>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer hide">
+                <!--<div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>-->
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2015
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
