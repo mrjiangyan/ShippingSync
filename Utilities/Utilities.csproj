@@ -46,6 +46,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -74,6 +78,7 @@
     <Compile Include="Utils\LogUtility.cs" />
     <Compile Include="Utils\PredicateUtility.cs" />
     <Compile Include="Utils\HMACHelper.cs" />
+    <Compile Include="Utils\RestUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
