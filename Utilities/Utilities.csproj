@@ -38,6 +38,10 @@
       <HintPath>..\packages\Dapper.Contrib.1.50.0\lib\net45\Dapper.Contrib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="jose-jwt, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jose-jwt.2.2.0\lib\net40\jose-jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -55,6 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,6 +74,7 @@
     <Compile Include="Entity\ApiKeyVal.cs" />
     <Compile Include="Entity\ApiResponse.cs" />
     <Compile Include="Entity\BusinessException.cs" />
+    <Compile Include="Entity\User.cs" />
     <Compile Include="Helper\AuthorizeHelper.cs" />
     <Compile Include="Helper\CompressionHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />

@@ -1,9 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
-
+using Utilities.Entity;
+using Utilities.Utils;
 
 namespace ShippingSyncServer.Filters
 {
@@ -42,22 +44,22 @@ namespace ShippingSyncServer.Filters
             //记录请求的数据
             if (context.ActionContext.ControllerContext.Controller is PmsApiController)
             {
-                var iPmsController = context.ActionContext.ControllerContext.Controller as PmsApiController;
+                var controller = context.ActionContext.ControllerContext.Controller as PmsApiController;
                 //记录请求的数据
-                if (log.RequestData != null &&iPmsController.RequestEntity != null)
-                    log.RequestData = iPmsController.RequestEntity.RequestData;
-                if (iPmsController.CurrentContextInfo != null)
+                if (log.RequestData != null && controller.RequestEntity != null)
+                    log.RequestData = controller.RequestEntity.RequestData;
+                if (controller.CurrentContextInfo != null)
                 {
-                    log.OrgId = iPmsController.CurrentContextInfo.CurrentOrgId;
-                    if (iPmsController.CurrentContextInfo.CurrentUser != null)
+                    log.OrgId = controller.CurrentContextInfo.CurrentOrgId;
+                    if (controller.CurrentContextInfo.CurrentUser != null)
                     {
-                        log.OwnerId = iPmsController.CurrentContextInfo.CurrentUser.OwnerId;
-                        log.UserName = iPmsController.CurrentContextInfo.CurrentUser.Name;
+                        log.OwnerId = controller.CurrentContextInfo.CurrentUser.OwnerId;
+                        log.UserName = controller.CurrentContextInfo.CurrentUser.Name;
                     }
                 }
             }
             //记录下应用的错误信息
-            Logger.LogException(log);
+            LogUtility.Error(log);
         }
 
         public override Task OnExceptionAsync(HttpActionExecutedContext context,

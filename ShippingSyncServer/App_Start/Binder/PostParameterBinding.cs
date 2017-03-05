@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Metadata;
 
-namespace iPms.WebUtilities.Binder
+namespace ShippingSyncServer.Binder
 {
     /// <summary>
     /// A Custom HttpParameterBinding to bind multiple parameters from request body

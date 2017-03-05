@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace iPms.WebUtilities.Helper
+namespace Utilities.Helper
 {
     /// <summary>
     /// Json字符串序列化和反序列化库

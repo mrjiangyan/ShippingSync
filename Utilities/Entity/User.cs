@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace Utilities
+namespace Utilities.Entity
 {
-    public class RequestEntity
+    public class User
     {
-        public HttpRequest Request;
     }
 }

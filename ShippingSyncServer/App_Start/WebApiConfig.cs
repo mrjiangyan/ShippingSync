@@ -26,10 +26,6 @@ namespace ShippingSyncServer
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}"
                 , new { id = RouteParameter.Optional }
                 );
-          
-            
-           
-           
             config.MessageHandlers.Add(new MessageLoggingHandler());
             config.Formatters.Insert(0, GlobalConfigurationHelper.Init());
             config.Formatters.Remove(config.Formatters.XmlFormatter);

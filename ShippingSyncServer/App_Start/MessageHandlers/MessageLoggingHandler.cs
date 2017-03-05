@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
-
+using Utilities.Utils;
 
 namespace ShippingSyncServer
 {
@@ -17,7 +17,7 @@ namespace ShippingSyncServer
 
         private static void Log(HttpRequestHeaders header, string method, string uri, string requestContent, string responseContent, DateTime beginTime, DateTime endTime)
         {
-            var log = new RemoteMessageLog
+            var log = new
                 {
                     Method = method,
                     Header= header.ToString(),
@@ -27,21 +27,9 @@ namespace ShippingSyncServer
                     BeginTime = beginTime,
                     EndTime = endTime
                 };
-            if(header.Contains(RequestHeaders.OwnerId))
-            {
-                long ownerId = -1;
-                string[] values = (string[])header.GetValues(RequestHeaders.OwnerId);
-                if (long.TryParse(values[0], out ownerId))
-                    log.OwnerId = ownerId;
-            }
-            if (header.Contains(RequestHeaders.OrgId))
-            {
-                long orgId = -1;
-                string[] values = (string[])header.GetValues(RequestHeaders.OrgId);
-                if (long.TryParse(values[0], out orgId))
-                    log.OrgId = orgId;
-            }
-            Logger.LogApiCall(log);
+
+
+            LogUtility.Info(log);
         }
     }
 }

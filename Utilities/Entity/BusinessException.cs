@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iPms.WebEntity.Common
+namespace Utility.Entity
 {
     public class ApiError
     {
