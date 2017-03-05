@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.Helper;
 
 namespace Utilities.Utils
 {
@@ -35,8 +36,17 @@ namespace Utilities.Utils
         }
 
 
-        public static void Info(string msg)
+       
+
+        public static void Info(object obj)
         {
+            string msg = "";
+            if (obj is string)
+                msg = obj.ToString();
+            else
+            {
+                msg = JsonHelper.JsonObjectSerialize(obj);
+            }
             StackFrame sf = new StackFrame(1);
             msg = string.Format("{0}.{1}:{2}", sf.GetMethod().ReflectedType.FullName, sf.GetMethod().Name, msg);
             _loginfo.Info(msg);
