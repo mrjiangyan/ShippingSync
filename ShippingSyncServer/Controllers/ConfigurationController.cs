@@ -9,7 +9,7 @@ using Utilities.Entity;
 
 namespace ShippingSyncServer.Controllers
 {
-    public class ConfigController : BaseApiController
+    public class ConfigurationController : BaseApiController
     {
         [HttpPost]
         public async Task<ApiResponse<bool>> TryConnection(string connectionString)
